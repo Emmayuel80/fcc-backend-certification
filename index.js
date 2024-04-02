@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const multer = require("multer");
+const fs = require("fs");
 const app = express();
 const port = 7569;
 dotenv.config();
