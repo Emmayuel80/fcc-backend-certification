@@ -13,6 +13,19 @@ dotenv.config();
 mongoose.connect(process.env.MONGO_URI);
 mongoose.set("debug", true);
 
+app.use(
+  cors({
+    origin: "https://www.freecodecamp.org",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
+
+app.enable("trust proxy");
+app.use(helmet());
+app.use(require("morgan")("combined"));
+app.disable("x-powered-by");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 // Models
 require("./models/URL");
 require("./models/User");
@@ -48,15 +61,3 @@ if (process.env.PRODUCTION) {
     console.log(`Server is running on port ${port}`);
   });
 }
-app.use(
-  cors({
-    origin: "https://www.freecodecamp.org",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
-app.enable("trust proxy");
-app.use(helmet());
-app.use(require("morgan")("combined"));
-app.disable("x-powered-by");
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
