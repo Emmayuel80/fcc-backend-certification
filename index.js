@@ -52,8 +52,6 @@ app.use(
   cors({
     origin: "https://www.freecodecamp.org",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    optionsSuccessStatus: 200,
   })
 );
 app.enable("trust proxy");
