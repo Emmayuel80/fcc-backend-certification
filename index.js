@@ -33,7 +33,7 @@ require("./models/User");
 // Routes
 app.use("/api/users", require("./routes/exercise-tracker"));
 app.use("/api/shorturl", require("./routes/urlshortener-microservice"));
-app.use("/api/", require("./routes/timestamp-microservice"));
+app.use("/timestamp/api/", require("./routes/timestamp-microservice"));
 app.use("/api/whoami", require("./routes/requestheaderparser-microservice"));
 app.use("/api/filemetadata", require("./routes/filemetadata-microservice"));
 
