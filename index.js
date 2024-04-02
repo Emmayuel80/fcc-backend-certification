@@ -48,7 +48,14 @@ if (process.env.PRODUCTION) {
     console.log(`Server is running on port ${port}`);
   });
 }
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://www.freecodecamp.org",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    optionsSuccessStatus: 200,
+  })
+);
 app.enable("trust proxy");
 app.use(helmet());
 app.use(require("morgan")("combined"));
