@@ -27,9 +27,26 @@ app.get("/", (req, res) => {
   res.send("Server is running!");
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+if (process.env.PRODUCTION) {
+  const privateKey = fs.readFileSync(
+    `/etc/letsencrypt/live/${process.env.DOMAIN}/privkey.pem`,
+    "utf8"
+  );
+  const certificate = fs.readFileSync(
+    `/etc/letsencrypt/live/${process.env.DOMAIN}/cert.pem`,
+    "utf8"
+  );
+  const https = require("https");
+  const credentials = { key: privateKey, cert: certificate };
+  const httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+} else {
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}
 app.use(cors());
 app.enable("trust proxy");
 app.use(helmet());
