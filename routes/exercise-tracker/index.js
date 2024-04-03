@@ -28,7 +28,13 @@ router.post("/:id/exercises", async (req, res) => {
     ...exercise._doc,
     date: new Date(exercise.date).toDateString(),
   }));
-  res.json({ ...user._doc, log });
+  res.json({
+    _id: user._id,
+    username: user.username,
+    description,
+    duration,
+    date: dateObject.toDateString(),
+  });
 });
 
 router.get("/:id/logs", async (req, res) => {
