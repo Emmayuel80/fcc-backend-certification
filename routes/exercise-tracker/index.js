@@ -21,6 +21,11 @@ router.post("/:id/exercises", async (req, res) => {
   if (!user) return res.json({ error: "User not found" });
   user.log.push({ description, duration, date });
   await user.save();
+  // convert date to string on the log
+  user.log = user.log.map((exercise) => ({
+    ...exercise._doc,
+    date: exercise.date.toDateString(),
+  }));
   res.json(user);
 });
 
@@ -37,7 +42,12 @@ router.get("/:id/logs", async (req, res) => {
     return true;
   });
   if (limit) log = log.slice(0, limit);
-  res.json({ ...user._doc, log });
+  // convert date to string on the log
+  log = log.map((exercise) => ({
+    ...exercise._doc,
+    date: exercise.date.toDateString(),
+  }));
+  res.json({ ...user._doc, log, count: user.log.length });
 });
 
 module.exports = router;
