@@ -10,4 +10,13 @@ router.post("/", upload.single("upfile"), (req, res) => {
   });
 });
 
+router.get("/", (req, res) => {
+  res.send(`
+    <form action="/api/fileanalyse" method="post" enctype="multipart/form-data">
+        <input type="file" name="upfile" />
+        <input type="submit" value="Submit" />
+    </form>
+  `);
+});
+
 module.exports = router;
