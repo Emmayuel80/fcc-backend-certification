@@ -38,7 +38,12 @@ app.use("/api/whoami", require("./routes/requestheaderparser-microservice"));
 app.use("/api/fileanalyse", require("./routes/filemetadata-microservice"));
 
 app.get("/", (req, res) => {
-  res.send("Server is running!");
+  res.send(`
+    <form action="/api/fileanalyse" method="post" enctype="multipart/form-data">
+        <input type="file" name="upfile" />
+        <input type="submit" value="Submit" />
+    </form>
+  `);
 });
 
 if (process.env.PRODUCTION) {
