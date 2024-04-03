@@ -31,7 +31,7 @@ router.post("/:id/exercises", async (req, res) => {
     username: user.username,
     description,
     duration,
-    date: new Date(date).toDateString(),
+    date: new Date(isNaN(date) ? date : Number(date)).toDateString(),
     _id: user._id,
   });
 });
