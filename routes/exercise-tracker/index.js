@@ -21,12 +21,13 @@ router.post("/:id/exercises", async (req, res) => {
   if (!user) return res.json({ error: "User not found" });
   user.log.push({ description, duration, date });
   await user.save();
+  let log = [...user.log];
   // convert date to string on the log
-  user.log = user.log.map((exercise) => ({
+  log = log.map((exercise) => ({
     ...exercise._doc,
     date: new Date(exercise.date).toDateString(),
   }));
-  res.json(user);
+  res.json({ ...user, log });
 });
 
 router.get("/:id/logs", async (req, res) => {
