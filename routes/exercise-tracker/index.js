@@ -32,7 +32,7 @@ router.post("/:id/exercises", async (req, res) => {
     _id: user._id,
     username: user.username,
     description,
-    duration,
+    duration: Number(duration),
     date: dateObject.toDateString(),
   });
 });
