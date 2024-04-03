@@ -20,7 +20,7 @@ router.post("/:id/exercises", async (req, res) => {
   const user = await User.findById(userId);
   let dateObject = date ? new Date(date) : new Date();
   if (!user) return res.json({ error: "User not found" });
-  user.log.push({ description, duration, dateObject });
+  user.log.push({ description, duration, date: dateObject });
   await user.save();
   let log = [...user.log];
   // convert date to string on the log
